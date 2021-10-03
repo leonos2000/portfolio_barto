@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <!-- APPBAR -->
-    <v-app-bar app>
-      <v-toolbar-title>Bartosz Czarnecki</v-toolbar-title>
+    <v-app-bar app clipped-left>
+      <v-toolbar-title class="toolbar-home" @click="$router.push('/')">Bartosz Czarnecki</v-toolbar-title>
       <v-spacer />
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn
@@ -37,7 +37,7 @@
       <router-view />
     </v-main>
 
-    <v-footer color="grey darken-3" dark no-gutters>
+    <v-footer app color="grey darken-3" dark no-gutters clipped-left>
       <v-container>
         <v-row justify="center" class="mb-6">Bartosz Czarnecki </v-row>
       </v-container>
@@ -78,4 +78,9 @@ html,
 body {
   overflow-x: hidden;
 }
+
+.toolbar-home {
+  cursor: pointer;
+}
+
 </style>

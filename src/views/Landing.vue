@@ -3,10 +3,44 @@
     fluid
     class="ma-0 pa-0"
   >
-    <v-img
+    <v-parallax
       src="../assets/mountain.jpg"
       max-height="800"
-    ></v-img>
+    >
+      <v-container
+        fill-height
+        fluid
+      >
+        <v-row
+          justify="center"
+          align="center"
+          no-gutters
+        >
+          <v-col align="right">
+            <div
+              class="text-h3 white--text font-weight-bold"
+            >
+              Bartosz Czarnecki
+            </div>
+            <div class="text-h5 white--text font-weight-light">
+              Data Science | Data Analytics
+            </div>
+          </v-col>
+          <v-col class="ma-12">
+            <v-avatar 
+              class="outlined"
+              size="300"
+            >
+              <v-img
+                src="../assets/avatar.jpg"
+              >
+              </v-img>
+            </v-avatar>
+
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-parallax>
 
     <v-row class="ma-4 pt-16 pb-16" justify="center">
       <v-col
@@ -62,4 +96,8 @@ export default {
 /* .ekahau-bg {
   background: url("../assets/landing/ekahau-background.png");
 } */
+
+.v-avatar.outlined {
+  border: 2px solid white;
+}
 </style>
