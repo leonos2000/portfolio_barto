@@ -49,7 +49,7 @@
         v-for="(card, i) in cards"
         :key="i"
       >
-        <v-card class="pa-2" height="100%">
+        <v-card height="100%" elevation="0">
           <v-row justify="center" class="ma-4">
             <v-icon x-large>{{ card.icon }}</v-icon>
           </v-row>
@@ -60,6 +60,65 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <v-parallax
+      src="../assets/analytics.jpg"
+      max-height="800"
+    >
+      <v-container
+        fill-height
+        fluid
+      >
+        <v-row
+          justify="center"
+          align="center"
+          no-gutters
+        >
+          <v-col
+            v-for="(project, i) in projectsCards"
+            :key="i"
+            cols="5"
+          >
+            <v-hover v-slot="{ hover }">
+              <v-card
+                :elevation="hover ? 12 : 2"
+                class="ma-6"
+                style="background: black"
+              >
+                <v-img
+                  height="250"
+                  class="prjImg"
+                  :class="{ 'prjImgHover': hover }"
+                  :src="project.image"
+                >
+                  <v-container
+                    fluid
+                    fill-height
+                  >
+                    <v-row
+                      justify="center"
+                      align="center"
+                    >
+                      <v-card-title
+                        class="text-center white--text"
+                      >
+                        {{ project.title }}
+                      </v-card-title>
+                      <v-card-text
+                        class="text-center white--text"
+                      >
+                        {{ project.text }}
+                      </v-card-text>
+                    </v-row>
+                  </v-container>
+                </v-img>
+              </v-card>
+            </v-hover>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-parallax>
+
   </v-container>
 </template>
 
@@ -72,19 +131,31 @@ export default {
     return {
       cards: [
         {
-          title: "Data science",
-          text: "Imma data mad scientisto",
+          title: "Collect",
+          text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus pulvinar risus, quis fermentum erat eleifend in. Donec tortor arcu, ultricies quis justo a, fermentum lacinia purus. Nullam pretium nunc.",
           icon: "mdi-chemical-weapon",
         },        
         {
-          title: "Data analitycs",
-          text: "I like big data",
+          title: "Process",
+          text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus pulvinar risus, quis fermentum erat eleifend in. Donec tortor arcu, ultricies quis justo a, fermentum lacinia purus. Nullam pretium nunc.",
           icon: "mdi-database",
         },        
         {
-          title: "Alcoholic",
-          text: "I like dring a lot of alcholol with my pussies",
+          title: "Visualize",
+          text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis luctus pulvinar risus, quis fermentum erat eleifend in. Donec tortor arcu, ultricies quis justo a, fermentum lacinia purus. Nullam pretium nunc.",
           icon: "mdi-glass-cocktail",
+        },
+      ],
+      projectsCards: [
+        {
+          title: "Otomoto",
+          text: "Otomoto data visualisation",
+          image: require("../assets/cars.jpg"),
+        },
+        {
+          title: "Otodom",
+          text: "Otodom data visualisation",
+          image: require("../assets/buildings.jpg"),
         },
       ]
     }
@@ -99,5 +170,11 @@ export default {
 
 .v-avatar.outlined {
   border: 2px solid white;
+}
+.prjImg {
+  transition: opacity .4s ease-in-out;
+}
+.prjImgHover {
+  opacity: 0.6;
 }
 </style>
