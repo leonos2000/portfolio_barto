@@ -19,7 +19,7 @@
           offset-x
         >
           <template v-slot:activator="{ on, attrs }">
-            <v-list-item link v-bind="attrs" v-on="on" @click="$router.push(item.url)">
+            <v-list-item link v-bind="attrs" v-on="on" @click="changeProject(item.component, item.url)">
               <v-list-item-icon>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-icon>
@@ -43,7 +43,7 @@
     </v-navigation-drawer>
     
 
-    <component :is="Otodom"/>
+    <component :is="component.active"/>
 
   </v-container>
 </template>
@@ -52,18 +52,8 @@
 
 export default {
   name: "App",
-  mounted() {},
-
-  computed: {
-    Otodom() {
-      return () => import('../components/Otodom.vue')
-    }
-  },
-
-  watch: {
-    $route(to,) {
-      console.log(to)
-    }
+  created() {
+    this.changeProject(this.$route.params.prj)
   },
 
   data() {
@@ -94,7 +84,7 @@ export default {
           icon: "mdi-home-city-outline",
           hoverTitle: "Otodom",
           hoverText: "Otodom opis",
-          url: "/portfolio/otodom",
+          url: "otodom",
           image: require("../assets/mountain.jpg"),
         },
         {
@@ -102,12 +92,23 @@ export default {
           icon: "mdi-car",
           hoverTitle: "Otomoto",
           hoverText: "Otomoto opis",
-          url: "/portfolio/otomoto",
+          url: "otomoto",
           image: require("../assets/mountain.jpg"),
         },
       ],
-      right: null,
+      components: {
+        active: import('../components/Otodom.vue'),
+        otodom: import('../components/Otodom.vue'),
+        otomoto: import('../components/Otomoto.vue'),
+      }
     };
   },
+  methods: {
+    changeProject(project) {
+      this.$router.push(`/portfolio/${project}`)
+      this.components.active = this.components[project]
+      this.updater++
+    }
+  }
 };
 </script>
