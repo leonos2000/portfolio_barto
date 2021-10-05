@@ -56,7 +56,7 @@ export default {
     return {
       menuButtons: [
         {action: () => { this.goToPage('/') }, text: 'home'},
-        {action: () => { this.goToPage('/portfolio') }, text: 'portfolio'},
+        {action: () => { this.goToPage('/portfolio/otodom') }, text: 'portfolio'},
         {action: () => { this.goToPage('/contact') }, text: 'contact'},
       ]
     }

@@ -18,7 +18,7 @@ const routes = [
     component: Contact
   },
   {
-    path: '/portfolio',
+    path: '/portfolio/:prj',
     name: 'Portfolio',
     component: Portfolio
   }

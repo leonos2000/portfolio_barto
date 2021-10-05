@@ -83,29 +83,29 @@
               <v-card
                 :elevation="hover ? 12 : 2"
                 class="ma-6"
-                style="background: black"
+                @click="$router.push(project.url)"
               >
                 <v-img
                   height="250"
-                  class="prjImg"
-                  :class="{ 'prjImgHover': hover }"
                   :src="project.image"
                 >
                   <v-container
                     fluid
                     fill-height
+                    class="prjImg pa-0"
+                    :class="{ 'prjImgHover': hover }"
                   >
                     <v-row
                       justify="center"
                       align="center"
                     >
                       <v-card-title
-                        class="text-center white--text"
+                        class="text-center white--text prjText text-h3 pb-0"
                       >
                         {{ project.title }}
                       </v-card-title>
                       <v-card-text
-                        class="text-center white--text"
+                        class="text-center white--text prjText"
                       >
                         {{ project.text }}
                       </v-card-text>
@@ -150,12 +150,14 @@ export default {
         {
           title: "Otomoto",
           text: "Otomoto data visualisation",
-          image: require("../assets/cars.jpg"),
+          image: require("../assets/otodom-thumbnail-landing.jpg"),
+          url: "/portfolio/otomoto",
         },
         {
           title: "Otodom",
           text: "Otodom data visualisation",
           image: require("../assets/buildings.jpg"),
+          url: "/portfolio/otodom",
         },
       ]
     }
@@ -172,9 +174,9 @@ export default {
   border: 2px solid white;
 }
 .prjImg {
-  transition: opacity .4s ease-in-out;
+  transition: backdrop-filter .2s ease-in-out;
 }
 .prjImgHover {
-  opacity: 0.6;
+  backdrop-filter: blur(5px) brightness(70%);
 }
 </style>
