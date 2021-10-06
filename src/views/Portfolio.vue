@@ -19,7 +19,7 @@
           offset-x
         >
           <template v-slot:activator="{ on, attrs }">
-            <v-list-item link v-bind="attrs" v-on="on" @click="changeProject(item.component, item.url)">
+            <v-list-item link v-bind="attrs" v-on="on" @click="changeProject(item.url)">
               <v-list-item-icon>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-icon>
@@ -43,17 +43,32 @@
     </v-navigation-drawer>
     
 
-    <component :is="component.active"/>
+    <component :is="activeProject"/>
 
   </v-container>
 </template>
 
 <script>
+import Otodom from '../components/Otodom.vue'
+import Otomoto from '../components/Otomoto.vue'
 
 export default {
   name: "App",
-  created() {
-    this.changeProject(this.$route.params.prj)
+  mounted() {
+    this.active = this.$route.params.prj
+  },
+
+  computed: {
+    activeProject() {
+      switch(this.active) {
+        case 'otomoto':
+          return Otomoto
+        case 'otodom':
+          return Otodom
+        default:
+          return Otodom
+      }
+    }
   },
 
   data() {
@@ -85,7 +100,7 @@ export default {
           hoverTitle: "Otodom",
           hoverText: "Otodom opis",
           url: "otodom",
-          image: require("../assets/mountain.jpg"),
+          image: require("../assets/buildings.jpg"),
         },
         {
           title: "Otomoto",
@@ -93,21 +108,16 @@ export default {
           hoverTitle: "Otomoto",
           hoverText: "Otomoto opis",
           url: "otomoto",
-          image: require("../assets/mountain.jpg"),
+          image: require("../assets/cars.jpg"),
         },
       ],
-      components: {
-        active: import('../components/Otodom.vue'),
-        otodom: import('../components/Otodom.vue'),
-        otomoto: import('../components/Otomoto.vue'),
-      }
-    };
+      active: 'otodom',
+    }
   },
   methods: {
     changeProject(project) {
-      this.$router.push(`/portfolio/${project}`)
-      this.components.active = this.components[project]
-      this.updater++
+      if (this.$route.params.prj != project) this.$router.push(`/portfolio/${project}`)
+      this.active = project
     }
   }
 };
