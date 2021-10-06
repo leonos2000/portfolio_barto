@@ -42,7 +42,6 @@
       </v-list>
     </v-navigation-drawer>
     
-
     <component :is="activeProject"/>
 
   </v-container>
@@ -116,8 +115,11 @@ export default {
   },
   methods: {
     changeProject(project) {
-      if (this.$route.params.prj != project) this.$router.push(`/portfolio/${project}`)
-      this.active = project
+      if (this.$route.params.prj != project) {
+        this.$vuetify.goTo(0, { duration: 0 })
+        this.$router.push(`/portfolio/${project}`)
+        this.active = project
+      }
     }
   }
 };

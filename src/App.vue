@@ -2,7 +2,7 @@
   <v-app>
     <!-- APPBAR -->
     <v-app-bar app clipped-left>
-      <v-toolbar-title class="toolbar-home" @click="$router.push('/')">Bartosz Czarnecki</v-toolbar-title>
+      <v-toolbar-title class="toolbar-home" @click="goToPage('/')">Bartosz Czarnecki</v-toolbar-title>
       <v-spacer />
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn
@@ -39,7 +39,7 @@
 
     <v-footer app color="grey darken-3" dark no-gutters clipped-left>
       <v-container>
-        <v-row justify="center" class="mb-6">Bartosz Czarnecki </v-row>
+        <v-row justify="center" class="grey--text">© 2021 Bartosz Czarnecki</v-row>
       </v-container>
     </v-footer>
   </v-app>
@@ -64,6 +64,7 @@ export default {
 
   methods: {
     goToPage(page) {
+      if (this.$route.path == page) return
       this.$vuetify.goTo(0, { duration: 0 })
         .then(() => {
           this.$router.push(page)

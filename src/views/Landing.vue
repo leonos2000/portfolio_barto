@@ -74,6 +74,13 @@
           align="center"
           no-gutters
         >
+        <div class="text-h2 black--text">Projects</div>
+        </v-row>
+        <v-row
+          justify="center"
+          align="center"
+          no-gutters
+        >
           <v-col
             v-for="(project, i) in projectsCards"
             :key="i"
