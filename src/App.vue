@@ -2,7 +2,9 @@
   <v-app>
     <!-- APPBAR -->
     <v-app-bar app clipped-left>
-      <v-toolbar-title class="toolbar-home" @click="goToPage('/')">Bartosz Czarnecki</v-toolbar-title>
+      <v-toolbar-title class="toolbar-home" @click="goToPage('/')"
+        >Bartosz Czarnecki</v-toolbar-title
+      >
       <v-spacer />
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn
@@ -39,7 +41,9 @@
 
     <v-footer app color="grey darken-3" dark no-gutters clipped-left>
       <v-container>
-        <v-row justify="center" class="grey--text">© 2021 Bartosz Czarnecki</v-row>
+        <v-row justify="center" class="grey--text"
+          >© 2021 Bartosz Czarnecki</v-row
+        >
       </v-container>
     </v-footer>
   </v-app>
@@ -48,29 +52,40 @@
 <script>
 export default {
   name: "App",
-  mounted() {
-
-  },
 
   data() {
     return {
       menuButtons: [
-        {action: () => { this.goToPage('/') }, text: 'home'},
-        {action: () => { this.goToPage('/portfolio/otodom') }, text: 'portfolio'},
-        {action: () => { this.goToPage('/contact') }, text: 'contact'},
-      ]
-    }
+        {
+          action: () => {
+            this.goToPage("/");
+          },
+          text: "home",
+        },
+        {
+          action: () => {
+            this.goToPage("/portfolio/otodom");
+          },
+          text: "portfolio",
+        },
+        {
+          action: () => {
+            this.goToPage("/contact");
+          },
+          text: "contact",
+        },
+      ],
+    };
   },
 
   methods: {
     goToPage(page) {
-      if (this.$route.path == page) return
-      this.$vuetify.goTo(0, { duration: 0 })
-        .then(() => {
-          this.$router.push(page)
-        })
-    }
-  }
+      if (this.$route.path == page) return;
+      this.$vuetify.goTo(0, { duration: 0 }).then(() => {
+        this.$router.push(page);
+      });
+    },
+  },
 };
 </script>
 
@@ -83,5 +98,4 @@ body {
 .toolbar-home {
   cursor: pointer;
 }
-
 </style>

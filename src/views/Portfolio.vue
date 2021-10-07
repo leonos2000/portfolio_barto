@@ -8,7 +8,7 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-divider></v-divider>
+      <v-divider />
 
       <v-list dense nav>
         <v-menu
@@ -19,7 +19,12 @@
           offset-x
         >
           <template v-slot:activator="{ on, attrs }">
-            <v-list-item link v-bind="attrs" v-on="on" @click="changeProject(item.url)">
+            <v-list-item
+              link
+              v-bind="attrs"
+              v-on="on"
+              @click="changeProject(item.url)"
+            >
               <v-list-item-icon>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-icon>
@@ -41,33 +46,32 @@
         </v-menu>
       </v-list>
     </v-navigation-drawer>
-    
-    <component :is="activeProject"/>
 
+    <component :is="activeProject" />
   </v-container>
 </template>
 
 <script>
-import Otodom from '../components/Otodom.vue'
-import Otomoto from '../components/Otomoto.vue'
+import Otodom from "../components/Otodom.vue";
+import Otomoto from "../components/Otomoto.vue";
 
 export default {
   name: "App",
   mounted() {
-    this.active = this.$route.params.prj
+    this.active = this.$route.params.prj;
   },
 
   computed: {
     activeProject() {
-      switch(this.active) {
-        case 'otomoto':
-          return Otomoto
-        case 'otodom':
-          return Otodom
+      switch (this.active) {
+        case "otomoto":
+          return Otomoto;
+        case "otodom":
+          return Otodom;
         default:
-          return Otodom
+          return Otodom;
       }
-    }
+    },
   },
 
   data() {
@@ -110,17 +114,17 @@ export default {
           image: require("../assets/cars.jpg"),
         },
       ],
-      active: 'otodom',
-    }
+      active: "otodom",
+    };
   },
   methods: {
     changeProject(project) {
       if (this.$route.params.prj != project) {
-        this.$vuetify.goTo(0, { duration: 0 })
-        this.$router.push(`/portfolio/${project}`)
-        this.active = project
+        this.$vuetify.goTo(0, { duration: 0 });
+        this.$router.push(`/portfolio/${project}`);
+        this.active = project;
       }
-    }
-  }
+    },
+  },
 };
 </script>

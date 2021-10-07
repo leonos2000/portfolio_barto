@@ -5,7 +5,6 @@
   </v-container>
 </template>
 
-
 <style scoped>
 .prj {
   height: 100vh;
