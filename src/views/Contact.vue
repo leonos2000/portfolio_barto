@@ -39,7 +39,7 @@
                 />
                 <v-row>
                   <v-spacer />
-                  <v-btn color="black" text>Send</v-btn>
+                  <v-btn color="black" text @click="sendMessage()">Send</v-btn>
                 </v-row>
               </v-container>
             </v-form>
@@ -121,8 +121,21 @@ export default {
           text: "+48 123789123",
         },
       ],
-    };
+    }
   },
+  methods: {
+    sendMessage() {
+      let data = new FormData()
+
+      data.append('csrfmiddlewaretoken', this.$cookies.get('csrftoken'))
+      data.append('message', 'testest')
+
+      this.axios.post('/message', data)
+        .then(res => {
+          console.log(res)
+        })
+    }
+  }
 };
 </script>
 
