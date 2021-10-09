@@ -3,47 +3,59 @@
     <v-row justify="center" align="center">
       <v-card class="ma-12 justify-center" max-width="960">
         <v-row no-gutters>
-          <v-col cols="8" class="pa-10">
-            <div class="text-h3 grey--text">GET IN TOUCH</div>
-            <div class="text-h7 ml-1 mt-2 grey--text">
-              Feel free to ask me anything about my job.
-            </div>
-            <v-form v-model="valid">
-              <v-container>
-                <v-row>
-                  <v-col>
-                    <v-text-field
-                      v-model="name"
-                      :rules="nameRules"
-                      label="Name"
-                      required
-                    />
-                  </v-col>
-                  <v-col>
-                    <v-text-field
-                      v-model="email"
-                      :rules="emailRules"
-                      label="E-mail"
-                      required
-                      autocapitalize="simon"
-                      type="email"
-                    />
-                  </v-col>
-                </v-row>
-                <v-textarea
-                  v-model="message"
-                  label="Message"
-                  :rules="messageRules"
-                  required
-                  scrollable
-                />
-                <v-row>
-                  <v-spacer />
-                  <v-btn color="black" text @click="sendMessage()">Send</v-btn>
-                </v-row>
-              </v-container>
-            </v-form>
+          <v-col cols="8">
+            <v-card elevation="0" height="100%" class="pa-10">
+              <div class="text-h3 grey--text">GET IN TOUCH</div>
+              <div class="text-h7 ml-1 mt-2 grey--text">
+                Feel free to ask me anything about my job.
+              </div>
+              <v-form v-model="valid" ref="form">
+                <v-container>
+                  <v-row>
+                    <v-col>
+                      <v-text-field
+                        v-model="name"
+                        :rules="nameRules"
+                        label="Name"
+                        required
+                      />
+                    </v-col>
+                    <v-col>
+                      <v-text-field
+                        v-model="email"
+                        :rules="emailRules"
+                        label="E-mail"
+                        required
+                        autocapitalize="simon"
+                        type="email"
+                      />
+                    </v-col>
+                  </v-row>
+                  <v-textarea
+                    v-model="message"
+                    label="Message"
+                    :rules="messageRules"
+                    required
+                    scrollable
+                  />
+                  <v-row>
+                    <v-spacer />
+                    <v-btn color="black" text @click="sendMessage()"
+                      >Send</v-btn
+                    >
+                  </v-row>
+                </v-container>
+              </v-form>
+              <v-progress-linear
+                :active="progress"
+                absolute
+                bottom
+                indeterminate
+                color="cyan"
+              />
+            </v-card>
           </v-col>
+
           <v-col cols="4" class="grey darken-3">
             <div class="mt-10 text-h5 text-center font-weight-bold white--text">
               CONTACT INFORMATION
@@ -79,6 +91,15 @@
         </v-row>
       </v-card>
     </v-row>
+
+    <v-snackbar v-model="snackbar" :color="snackbarColor">
+      {{ snackbarMessage }}
+      <template v-slot:action="{ attrs }">
+        <v-btn color="primary" text v-bind="attrs" @click="snackbar = false">
+          OK
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -87,7 +108,7 @@ export default {
   setup() {},
   data() {
     return {
-      valid: false,
+      valid: true,
       message: "",
       messageRules: [(v) => !!v || "Message is required"],
       email: "",
@@ -121,21 +142,45 @@ export default {
           text: "+48 123789123",
         },
       ],
-    }
+      snackbar: false,
+      snackbarMessage: "",
+      snackbarColor: "",
+      progress: false,
+    };
   },
   methods: {
     sendMessage() {
-      let data = new FormData()
+      if (!this.$refs.form.validate()) return;
 
-      data.append('csrfmiddlewaretoken', this.$cookies.get('csrftoken'))
-      data.append('message', 'testest')
+      let data = new FormData();
 
-      this.axios.post('/message', data)
-        .then(res => {
-          console.log(res)
+      data.append("csrfmiddlewaretoken", this.$cookies.get("csrftoken"));
+      data.append("name", this.name);
+      data.append("email", this.email);
+      data.append("message", this.message);
+
+      this.progress = true;
+
+      this.axios
+        .post("/message", data)
+        .then((res) => {
+          if (res.data.status == "success") {
+            this.snackbarColor = "success";
+            this.snackbarMessage =
+              "Your message is sent! I'll reply to you asap :)";
+            this.snackbar = true;
+          } else {
+            this.snackbarColor = "error";
+            this.snackbarMessage =
+              "Something went wrong :( please try again later or send email directly";
+            this.snackbar = true;
+          }
         })
-    }
-  }
+        .finally(() => {
+          this.progress = false;
+        });
+    },
+  },
 };
 </script>
 
