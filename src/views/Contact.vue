@@ -138,8 +138,8 @@ export default {
           text: "bartoszcz@gmail.comcom",
         },
         {
-          icon: "mdi-phone",
-          text: "+48 123789123",
+          icon: "mdi-map-marker",
+          text: "Poland, Warsaw",
         },
       ],
       snackbar: false,
