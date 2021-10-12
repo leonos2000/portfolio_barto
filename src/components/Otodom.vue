@@ -18,7 +18,7 @@
     >
       <v-col cols="6" lg="5" class="pa-8" :order="i % 2 ? 1 : 12">
         <v-img v-if="item.img != null" :src="item.img" max-height="300"/>
-        <iframe v-else class="prj" :src="item.iframeUrl" width="100%" />
+        <iframe v-else class="prediction" :src="item.iframeUrl" height="300px" width="100%" scrolling="no" />
       </v-col>
       <v-col cols="6" lg="5" class="pa-2" :order="i % 2 ? 12 : 1">
         <div class="text-h3 text-center mb-4">
@@ -81,7 +81,7 @@ export default {
           texts: [
             "I found that many people would like to, for example, check the estimated price of an apartment that is not currently on the market. Therefore, I used regression to be able to check the hypothetical price of such an apartment. The model works well when looking for standard flats. The less and less real the data is, the model shows less and less accurate data until it shows abstract data.",
           ],
-          img: require("../assets/otodom3.jpg"),
+          iframeUrl: 'http://192.168.10.163:8051',
         },
         {
           header: 'Visualization with Dash',
@@ -102,5 +102,10 @@ export default {
 .prj {
   height: 100vh;
   border: hidden;
+}
+
+.prediction {
+  border:hidden;
+  overflow: hidden;
 }
 </style>

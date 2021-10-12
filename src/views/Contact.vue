@@ -1,7 +1,7 @@
 <template>
   <v-container fluid fill-height>
     <v-row justify="center" align="center">
-      <v-card class="ma-12 justify-center" max-width="960">
+      <v-card class="ma-12 justify-center" max-width="960" elevation="20">
         <v-row no-gutters>
           <v-col cols="8">
             <v-card elevation="0" height="100%" class="pa-10">
